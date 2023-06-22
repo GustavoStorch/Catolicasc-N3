@@ -1,0 +1,6 @@
+flask
+mysql-connector-python
+pytest
+coverage
+pytest-mock
+pytest-cov

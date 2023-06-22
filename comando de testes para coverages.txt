@@ -1,0 +1,4 @@
+pytest
+python -m pytest
+python -m pytest -vv --cov=src --cov-report=html
+pytest --cov-config=.coveragerc --cov=src --cov-report=html tests/
