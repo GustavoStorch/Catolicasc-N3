@@ -123,12 +123,25 @@ END //
 DELIMITER ;
 
 DELIMITER //
-CREATE TRIGGER deletarMusicasDoGenero 
+CREATE TRIGGER deletarMusicasDoGenero
 AFTER DELETE ON generos
 FOR EACH ROW
 BEGIN
     DELETE FROM musicas WHERE generos_id = OLD.id;
 END //
+DELIMITER ;
+
+-- verificar necessidade de usar esse trigger --
+DELIMITER $$
+CREATE TRIGGER excluirMusicas AFTER DELETE ON generos
+FOR EACH ROW
+BEGIN
+  DECLARE musicas_count INT;
+  SELECT COUNT(*) INTO musicas_count FROM musicas WHERE generos_id = OLD.id;
+  IF musicas_count = 0 THEN
+    DELETE FROM musicas WHERE generos_id = OLD.id;
+  END IF;
+END$$
 DELIMITER ;
 
 --
@@ -178,6 +191,7 @@ BEGIN
     END IF;
 END //
 DELIMITER ;
+
 
 DELIMITER //
 CREATE TRIGGER atualizaGravadorasId
@@ -606,3 +620,47 @@ INSERT INTO `musicas_has_clientes` (`id`, `musicas_id`, `clientes_id`, `data`) V
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Demais Funções
+--
+
+select * from planos;
+ALTER TABLE planos AUTO_INCREMENT = 7;
+delete from planos where id=8;
+delete from planos where id=9;
+
+--
+
+select * from gravadoras;
+ALTER TABLE gravadoras AUTO_INCREMENT = 5;
+delete from gravadoras where id=6;
+delete from gravadoras where id=7;
+
+--
+
+select * from generos;
+ALTER TABLE generos AUTO_INCREMENT = 4;
+delete from generos where id=5;
+delete from generos where id=6;
+
+--
+
+select * from artistas;
+ALTER TABLE artistas AUTO_INCREMENT = 19;
+delete from artistas where id=20;
+delete from artistas where id=21;
+
+--
+
+select * from clientes;
+ALTER TABLE clientes AUTO_INCREMENT = 3;
+delete from clientes where id=4;
+delete from clientes where id=5;
+
+--
+
+select * from musicas;
+ALTER TABLE musicas AUTO_INCREMENT = 20;
+delete from musicas where id=21;
+delete from musicas where id=22;
