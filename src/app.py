@@ -1,4 +1,7 @@
 from flask import Flask, request, jsonify
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.routes.music_routes import music_routes
 from src.routes.generos_routes import generos_routes
 from src.routes.artista_routes import artista_routes
